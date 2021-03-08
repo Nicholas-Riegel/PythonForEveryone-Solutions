@@ -1,0 +1,497 @@
+6
+
+INTERMEDIATE EXPRESSIONS
+
+** power
+
+operator precedence
+
+parenthesis
+power
+multiplication/division left to right
+addition/subtraction left to right
+
+type() finds what type sth is, eg. string, number
+
+type conversions
+
+float(9) == 9.0
+int('1') == 1
+
+python3 division is always float
+
+to get user input
+
+x = input('What is your name: ')
+x == yoyo
+print('Welcome', x) # Welcome yoyo
+
+comment #
+
+7 
+
+CONDITIONALS 1
+
+indentation should be four spaces
+indentation indicates dependency
+
+x = 4
+if x > 2:
+    print('bigger')
+else:
+    print('smaller')
+print('all done')
+
+8
+
+CONDITIONALS 2
+
+# no else
+x = 5
+if x < 2:
+    print('small')
+elif x < 10:
+    print('medium')
+
+this just means that it won't print, if x >=10
+
+try/except
+
+surround dangerous code with a try block,
+if the code fails it jumps to the except
+otherwise the except is skipped
+
+x = 'hello world'
+try:
+    y = int(x)
+except:
+    y = -1
+print('first', y)
+
+x = '123'
+try:
+    y = int(x)
+except:
+    y = -1
+print('second', y)
+
+9
+
+FUNCTIONS
+
+def  #define FUNCTIONS
+
+def thing():
+    print('thing')
+
+
+def stores and names the following code
+
+built in functions:
+print()
+int()
+str()
+float()
+type()
+input()
+
+max() #finds the biggest character in a string?
+min() # finds the smallest
+
+return # ends function and returns the value
+
+
+def do(x)
+    return x + 2
+
+x # parameter 
+x + 2 # result
+do(3) # 3 is argument
+
+10
+
+INDEFINITE LOOPS 
+
+while True:
+    line = input('> ')
+    if line[0] == # :
+        continue         
+    if line == 'done' :
+        break
+    print(line)
+print('Done!')
+
+
+> hello
+hello
+> # don't print this
+> print this
+print this
+> done
+Done!
+
+'continue' stops the prgress, and sends back to beginning
+'break' breaks out of the loop
+
+this are indefinte loops
+they go on indefintely 
+
+11
+
+DEFINITE LOOPS
+
+use 'for' keyword
+iterate through the members of a set
+
+y = [1, 2, 3, 4, 5]
+for x in y:
+    print(x)
+
+1
+2
+3
+4
+5
+
+12
+
+'None' is a type
+it is a value, signifies emptiness
+'is' is stronger than ==
+
+smallest = None
+for x in [9, 41, 12, 3, 74, 15]:
+    if smallest is None:
+        smallest = x
+    elif x < smallest:
+        smallest = x
+    pirnt(smallest, x)
+print(smallest)
+
+'is' are these things equal in type and value
+== are these things equal in value
+
+only use 'is/is not' on booleans and noneTypes (<= recommended)
+
+13
+
+STRINGS: looping through them
+
+'len' finds length of string
+len('abc') # 3
+x = 'abc'
+x[1] # b
+
+fruit = 'banana'
+i = 0
+while i < len(fruit):
+    letter = fruit[i]
+    print(i, letter)
+    i += 1
+
+0b
+1a
+2n
+3a
+4n
+5a
+
+14
+
+STRINGS: 
+
+slicing
+
+s = 'Monty Python'
+print(s[0:5]) # Monty
+print 0 up to but not including 5
+
+print(s[6:20]) # is ok, it will stop at the end
+
+print(s[:1]) # M    
+print(s[6:]) # Python
+print(s[:]) # Monty Python
+
+fruit = 'banana'
+'n' in fruit # true
+'m' in fruit # false
+
+can use comparison operators on STRINGS
+
+'lat' < 'banana' # true
+
+String Libaray
+
+Methods
+method of string-object
+
+greet = 'Hello Bob'
+zap = greet.lower()
+print(zap) # hello bob
+
+print('Hi There'.lower()) # hi there [!!]
+
+stuff = 'hello'
+dir(stuff) # shows all the methods of the string constant
+
+str.find('na')
+returns position of first
+or returns -1 if not found
+
+str.upper()
+
+but str remains unchanged
+
+greet = 'hello Bob'
+x = greet.replace('Bob', 'Jane')
+print(x) # Hello Jane
+
+y = greet.replace('o', 'x')
+print(y) # Hellx Bxb
+
+greet = ' hello bob '
+greet.lstrip() # 'hello bob '
+greet.rstrip() # ' hello bob'
+greet.strip() # 'hello bob'
+
+this also gets rid of tabs or newlines
+
+Prefixes
+
+line = 'Please have a nice day'
+line.startswith('Please') # true
+line.startswith('p') # false
+
+Parsing and extracting:
+
+data = "from stephen.marquard@uct.ac.za Sat"
+atpos = data.find('@') # 21
+sppos = data.find(' ', atpos) 31
+finds the space after atpos
+host = data[atpos+1 : sppos] # uct.ac.za
+
+15
+
+READING FILES
+
+open()
+
+finds the file and returns a handle
+
+handle = open(filename, mode)
+
+f = open('file.txt', 'r')
+
+r - read
+w - write
+
+f is not the file
+so print(f) will only show some metadata about the file
+
+\n - the 'newline' character. it's one character, not two
+
+len(x\ny) == 3
+
+There's an '\n' at the end of each line in a file
+
+16
+
+FILES AS A SEQUENCE
+
+We can read files as a sequence of lines
+this means we can use the 'for in' structure
+
+f = open('file.txt')
+for x in f:
+    print(x)
+
+counting lines:
+
+f = open('file.txt')
+count = 0
+for x in f:
+    count += 1
+print('Line count:', count)
+
+Reading the whole file:  read()
+
+f = open('file.txt')
+x = f.read()
+print(len(x))
+9462
+print(x[:2])
+ab
+
+Searching throught a file:
+
+f = open('file.txt')
+for x in f:
+    if x.startswith('From:') :
+        print(x)
+
+this will print out with line in between every line.
+
+this is bc another \n is added by all print statements
+
+to deal with this, you can 'right strip' the \n, because it is considered a 'white space'
+
+f = open('file.txt')
+for x in f:
+    x = x.rstrip()
+    if x.startswith('From:') :
+        print(x)
+
+Skipping with 'continue':
+
+'if not'
+
+f = open('file.txt')
+for x in f:
+    x = x.rstrip()
+    if not x.startswith('From:')
+        continue
+    print(x)
+
+Using 'in' to select lines:
+
+f = open('file.txt')
+for x in f:
+    x = x.rstrip()
+    if not '@uct.ac.za' in x:
+        continue
+    print(x)
+
+Prompt for file name:
+
+fname = input('Enter file name: ')
+fhand = open(fname)
+count = 0
+for x in fhand:
+    if x.startswith('Subject:') :
+        count += 1
+print('There were', count, 'subject lines in', fname)
+
+Bad file names:
+
+fname = input('Enter file name: ')
+
+try:
+    fhand = open(fname)
+except:
+    print('File not found:', fname)
+    quit()
+
+count = 0
+for x in fhand:
+    if x.startswith('Subject:') :
+        count += 1
+print('There were', count, 'subject lines in', fname)
+
+
+17
+
+LISTS 1: 
+
+lists are data-structures
+
+strings are immutable
+fruit = 'banana'
+fruit[0] = 'c' # traceback
+
+lists are mutable
+
+range(4) # [0, 1, 2, 3]
+
+returns a list with numbers up to one less than parameter (but parameter number)
+
+list = ['a', 'b', 'c']
+print(len(list)) # 3
+print(range(len(list))) # [0, 1, 2]
+
+friends = ['Joseph', 'Glenn', 'Sally']
+
+for friend in friends:
+    print('happy New year:', friend)
+
+for i in range(len(friends))
+    friend = friends[i]
+    print('happy New year:', friend)
+
+Happy new year: joseph
+Happy new year: Glenn
+Happy new year: Sally
+
+18
+
+LISTS 2:
+
+concatenating lists
+
+a = [1, 2, 3]
+b = [4, 5, 6]
+c = a + b 
+[1, 2, 3, 4, 5, 6]
+
+slicing works the same way as with strings
+
+[2:3]
+will only give you the '2' position
+
+up to but not including
+
+x = list()
+type(x)
+<type 'list'>
+dir(x)
+['append', 'count', etc. ]
+
+stuff = list()
+stuff.append('book')
+stuff.append(9) // adds to end
+
+The 'in' operator:
+
+'boo' in stuff
+True
+20 not in stuff
+True
+
+friends.sort() // sorts alphabetically
+
+Built in functions
+
+nums = [3, 41, 12, 9, 74, 15]
+len(nums)
+6
+max(nums)
+74
+min(nums)
+3
+sum(nums)
+154
+sum(nums)/len(nums)
+25.6
+
+19
+
+LISTS AND STRINGS
+
+x = 'with three words'
+list = x.split() // no delimiter: splits on white spaces
+['with', 'three', 'words']
+
+split() cuts out the spaces, no matter how many there are
+
+thing = 'first;second;third'
+thing.split(';') // spcifying the delimiter
+['first', 'second', 'third']
+
+fhand = open('mbox-short.txt')
+for line in fhand:
+    line = ling.rstrip() //takes off \n
+    if not line.startswith('From '): continue
+    list = line.split()
+    print(list[2])
+
+pieces = email.split('@')
+['dfhgh', 'asdfasfd.com']
