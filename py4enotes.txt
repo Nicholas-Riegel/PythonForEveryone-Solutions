@@ -1,6 +1,8 @@
-6
+2
 
-INTERMEDIATE EXPRESSIONS
+==================================
+VARIABLES, EXPRESSIONS, STATEMENTS
+==================================
 
 ** power
 
@@ -28,9 +30,11 @@ print('Welcome', x) # Welcome yoyo
 
 comment #
 
-7 
+3
 
-CONDITIONALS 1
+============
+CONDITIONALS
+============ 
 
 indentation should be four spaces
 indentation indicates dependency
@@ -42,9 +46,7 @@ else:
     print('smaller')
 print('all done')
 
-8
-
-CONDITIONALS 2
+............ 
 
 # no else
 x = 5
@@ -75,9 +77,11 @@ except:
     y = -1
 print('second', y)
 
-9
+4
 
+=========
 FUNCTIONS
+=========
 
 def  #define FUNCTIONS
 
@@ -108,7 +112,11 @@ x # parameter
 x + 2 # result
 do(3) # 3 is argument
 
-10
+5
+
+==========
+ITERATIONS
+==========
 
 INDEFINITE LOOPS 
 
@@ -136,8 +144,6 @@ Done!
 this are indefinte loops
 they go on indefintely 
 
-11
-
 DEFINITE LOOPS
 
 use 'for' keyword
@@ -152,8 +158,7 @@ for x in y:
 3
 4
 5
-
-12
+...............
 
 'None' is a type
 it is a value, signifies emptiness
@@ -173,7 +178,11 @@ print(smallest)
 
 only use 'is/is not' on booleans and noneTypes (<= recommended)
 
-13
+6
+
+=======
+STRINGS
+======= 
 
 STRINGS: looping through them
 
@@ -270,9 +279,11 @@ sppos = data.find(' ', atpos) 31
 finds the space after atpos
 host = data[atpos+1 : sppos] # uct.ac.za
 
-15
+7
 
-READING FILES
+=====
+FILES
+=====
 
 open()
 
@@ -293,8 +304,6 @@ so print(f) will only show some metadata about the file
 len(x\ny) == 3
 
 There's an '\n' at the end of each line in a file
-
-16
 
 FILES AS A SEQUENCE
 
@@ -387,10 +396,11 @@ for x in fhand:
         count += 1
 print('There were', count, 'subject lines in', fname)
 
+8
 
-17
-
-LISTS 1: 
+=====
+LISTS
+=====
 
 lists are data-structures
 
@@ -420,8 +430,6 @@ for i in range(len(friends))
 Happy new year: joseph
 Happy new year: Glenn
 Happy new year: Sally
-
-18
 
 LISTS 2:
 
@@ -472,8 +480,6 @@ sum(nums)
 sum(nums)/len(nums)
 25.6
 
-19
-
 LISTS AND STRINGS
 
 x = 'with three words'
@@ -495,3 +501,118 @@ for line in fhand:
 
 pieces = email.split('@')
 ['dfhgh', 'asdfasfd.com']
+
+9
+
+============
+DICTIONARIES
+============
+
+dict1 = dict()
+{}
+
+dict1['one'] = 'uno'
+{
+    'one': 'uno'
+}
+
+>>> eng2sp = {'one': 'uno', 'two': 'dos', 'three': 'tres'}
+>>> print(eng2sp)
+{'one': 'uno', 'three': 'tres', 'two': 'dos'}
+
+order is changed; properties are not found by order
+
+dict1['two']
+'dos'
+
+len() returns number of key value pairs
+
+in - use in to find keys in a dict
+
+>>> 'one' in eng2sp
+True
+>>> 'uno' in eng2sp
+False 
+
+values() - To see whether something appears as a value in a dictionary, you can use the method 'values()', which returns the values as a list, and then use the in operator: 
+
+>>> vals = list(eng2sp.values())
+>>> 'uno' in vals
+True
+...............
+
+dict = dict()
+names = ['csev', 'cwen', 'csev', 'zqian', 'cwen']
+
+for x in names:
+    if x not in dict :
+        dict[x] = 1
+    else :
+        dict[x] = dict[x] + 1
+print(dict)
+
+.................
+
+get()
+
+if name in dict:
+    val = dict[name]
+else:
+    val = 0
+
+||
+
+val = dict.get(name, 0)
+
+................
+
+dict = dict()
+names = ['csev', 'cwen', 'csev', 'zqian', 'cwen']
+
+for x in names:
+    dict[x] = dict.get(x, 0) + 1
+
+print(dict)
+
+...........
+
+Definite Loops and Dictionaries
+
+dict = { 'chuck':1, 'fred':42, 'jan':100}
+for x in dict:
+    print(x, dict[x])
+
+jan 100
+chuck 1
+fred 42
+
+..............
+Dictionary Methods
+
+dict = { 'chuck':1, 'fred':42, 'jan':100}
+print(list(dict))
+['jan', 'chuck', 'fred']
+
+print(dict.keys())
+['jan', 'chuck', 'fred']
+
+print(dict.values())
+[100, 1, 42]
+
+print(dict.items())
+[('jan', 100), ('chuck', 1), ('fred', 42)]
+
+a list of tuples
+
+...............
+Two iteration variables
+
+dict = { 'chuck':1, 'fred':42, 'jan':100}
+
+for a, b in dict.items():
+    print(a, b)
+
+jan 100
+chick 1
+fred 42
+
