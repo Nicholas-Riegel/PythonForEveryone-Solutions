@@ -99,6 +99,19 @@ float()
 type()
 input()
 
+math module: 'import math'
+math.log10()
+math.pi
+math.sin()
+math.sqrt()
+
+random module: 'import random'
+random.random() #betw 0 inclusive and 1 exclusive
+random.randint(0, 10) #rand int betw 
+t = [1, 2, 3]
+ramdom.choice(t)
+
+
 max() #finds the biggest character in a string?
 min() # finds the smallest
 
@@ -111,6 +124,38 @@ def do(x)
 x # parameter 
 x + 2 # result
 do(3) # 3 is argument
+
+>>> print_twice('Spam '*4)
+Spam Spam Spam Spam
+Spam Spam Spam Spam
+
+The argument is evaluated before the function is called.
+
+You can also use a variable as an argument: 
+
+>>> michael = 'Eric, the half a bee.'
+>>> print_twice(michael)
+Eric, the half a bee.
+Eric, the half a bee. 
+
+The name of the variable we pass as an argument (michael) has nothing to do with the name of the parameter (bruce). It doesn't matter what the value was called back home (in the caller); here in print_twice, we call everybody bruce.
+
+Void functions might display something on the screen or have some other effect, but they don't have a return value. If you try to assign the result to a variable, you get a special value called None. 
+
+>>> result = print_twice('Bing')
+Bing
+Bing
+>>> print(result)
+None
+
+To return a result from a function, we use the return statement in our function. For example, we could make a very simple function called addtwo that adds two numbers together and returns a result. 
+
+def addtwo(a, b):
+    added = a + b
+    return added
+
+x = addtwo(3, 5)
+print(x)
 
 5
 
