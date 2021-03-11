@@ -204,6 +204,9 @@ for x in y:
 4
 5
 ...............
+sum()
+adds all members of a list
+.............
 
 'None' is a type
 it is a value, signifies emptiness
