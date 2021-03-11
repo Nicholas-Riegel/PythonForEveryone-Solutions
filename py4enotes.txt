@@ -239,6 +239,8 @@ len('abc') # 3
 x = 'abc'
 x[1] # b
 
+fruit[-1] yields the last letter, fruit[-2] yields the second to last, and so on.
+ 
 fruit = 'banana'
 i = 0
 while i < len(fruit):
