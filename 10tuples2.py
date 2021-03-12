@@ -9,13 +9,15 @@ Once you have accumulated the counts for each hour, print out the counts, sorted
 name = input("Enter file: ")
 if len(name) < 1:
     name = "mbox-short.txt"
+
 try:
     handle = open(name)
 except:
     print('File not found')
     quit()
-list = list()
+
 dict = dict()
+
 for line in handle:
     if line.startswith('From '):
         list = line.split()
