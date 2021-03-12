@@ -410,6 +410,12 @@ print(len(x))
 print(x[:2])
 ab
 
+It is a good idea to store the output of read as a variable because each call to read exhausts the resource: >>> fhand = open('mbox-short.txt')
+>>> print(len(fhand.read()))
+94626
+>>> print(len(fhand.read()))
+0
+
 Searching throught a file:
 
 f = open('file.txt')
@@ -439,6 +445,15 @@ for x in f:
     if not x.startswith('From:')
         continue
     print(x)
+
+Using find():
+
+fhand = open('mbox-short.txt')
+for line in fhand:
+    line = line.rstrip()
+    if line.find('@uct.ac.za') == -1:
+        continue
+    print(line)
 
 Using 'in' to select lines:
 
@@ -474,6 +489,46 @@ for x in fhand:
     if x.startswith('Subject:') :
         count += 1
 print('There were', count, 'subject lines in', fname)
+
+Writing files:
+
+To write a file, you have to open it with mode "w" as a second parameter: 
+
+>>> fout = open('output.txt', 'w')
+>>> print(fout)
+<_io.TextIOWrapper name='output.txt' mode='w' encoding='cp1252'> 
+
+IF THE FILE ALREADY EXISTS, OPENING IT IN WRITE MODE CLEARS OUT THE OLD DATA AND STARTS FRESH, SO BE CAREFUL! IF THE FILE DOESN'T EXIST, A NEW ONE IS CREATED."
+
+The write method of the file handle object puts data into the file, returning the number of characters written. The default write mode is text for writing (and reading) strings. 
+
+>>> line1 = "This here's the wattle,\n"
+>>> fout.write(line1)
+24
+
+Again, the file object keeps track of where it is, so if you call write again, it adds the new data to the end. 
+
+We must make sure to manage the ends of lines as we write to the file by explicitly inserting the newline character when we want to end a line. The print statement automatically appends a newline, but the write method does not add the newline automatically. 
+
+>>> line2 = 'the emblem of our land.\n'
+>>> fout.write(line2)
+24 
+
+When you are done writing, you have to close the file to make sure that the last bit of data is physically written to the disk so it will not be lost if the power goes off. >>> fout.close()
+
+Debugging:
+
+newlines etc. are normally invisible: 
+
+>>> s = '1 2\t 3\n 4'
+>>> print(s)
+1 2  3
+ 4 
+
+'repr' can help. 
+
+>>> print(repr(s))
+'1 2\t 3\n 4' 
 
 8
 
