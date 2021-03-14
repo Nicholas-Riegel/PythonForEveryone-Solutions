@@ -844,6 +844,49 @@ for a, b in dict.items():
 jan 100
 chick 1
 fred 42
+...........
+
+Advanced text parsing:
+
+how to deal iwth punctuation and capitalization?
+
+We can solve both these problems by using the string methods lower, punctuation, and translate. The translate is the most subtle of the methods. Here is the documentation for translate: 
+
+line.translate(str.maketrans(fromstr, tostr, deletestr))
+
+Replace the characters in fromstr with the character in the same position in tostr and delete all characters that are in deletestr. The fromstr and tostr can be empty strings and the deletestr parameter can be omitted.
+
+We will not specify the tostr but we will use the deletestr parameter to delete all of the punctuation. We will even let Python tell us the list of characters that it considers "punctuation": 
+
+>>> import string
+>>> string.punctuation
+'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~' 
+
+We make the following modifications to our program: import string
+
+fname = input('Enter the file name: ')
+
+try:
+    fhand = open(fname)
+except:
+    print('File cannot be opened:', fname)
+    exit()
+
+counts = dict()
+
+for line in fhand:
+    line = line.rstrip()
+    line = line.translate(line.maketrans('', '', string.punctuation))
+    line = line.lower()
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+print(counts)
+
 
 10
 

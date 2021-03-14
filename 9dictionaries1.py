@@ -4,7 +4,7 @@ for x in fhand:
     x = x.rstrip()
     list = x.split()
     for y in list:
-        dict[y] = 0
+        dict[y] = 1
 print(dict)
 
 if 'Writing' in dict:
