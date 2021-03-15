@@ -23,7 +23,9 @@ for line in fhandle:
         list = line.split()
         if '@' in list[1]:
             email = list[1]
-            domain = email[email.find('@')+1:]
+            # domain = email[email.find('@')+1:]
+            # or, from next chpt on Tuples:
+            name, domain = email.split('@')
             dic[domain] = dic.get(domain, 0) + 1
 
 print(dic)
