@@ -1258,3 +1258,27 @@ should result in 'Maximum: 0.9907'
 ----------
 Escape character: \
 \$ turns $ into regular dollar sign
+
+12
+
+==========
+NETWORKING
+==========
+
+Transport Control Protocol = TCP
+Internet Protocol = IP
+
+sockets
+
+TCP Port numbers
+
+
+import socket
+mysock = socket.socket(socket.AF_INET, SOCK_STREAM)
+mysock.connect( ('data.pr4e.org', 80) )
+
+HTTP
+hypertext transfer protocol
+
+GET request is made
+
