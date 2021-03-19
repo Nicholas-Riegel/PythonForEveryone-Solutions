@@ -1282,3 +1282,175 @@ hypertext transfer protocol
 
 GET request is made
 
+Web browser
+----------
+
+import socket
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('data.pr4e.org', 80))
+cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\r\n\r\n'.encode()
+mysock.send(cmd)
+
+while True:
+    data = mysock.recv(512)
+    if len(data) < 1:
+        break
+    print(data.decode(),end='')
+
+mysock.close()
+ 
+First the program makes a connection to port 80 on the server www.py4e.com. Since our program is playing the role of the "web browser", the HTTP protocol says we must send the GET command followed by a blank line. \r\n signifies an EOL (end of line), so \r\n\r\n signifies nothing between two EOL sequences. That is the equivalent of a blank line.
+
+One of the requirements for using the HTTP protocol is the need to send and receive data as bytes objects, instead of strings. In the preceding example, the encode() and decode() methods convert strings into bytes objects and back again. The next example uses b'' notation to specify that a variable should be stored as a bytes object. encode() and b'' are equivalent. 
+
+>>> b'Hello world'
+b'Hello world'
+>>> 'Hello world'.encode()
+b'Hello world'
+
+Retrieving images:
+------------------
+
+Instead of copying the data to the screen as the program runs, we accumulate the data in a string, trim off the headers, and then save the image data to a file as follows: 
+
+import socket
+import time
+
+HOST = 'data.pr4e.org'
+PORT = 80
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect((HOST, PORT))
+mysock.sendall(b'GET http://
+data.pr4e.org/cover3.jpg HTTP/1.0\r\n\r\n')
+count = 0
+picture = b""
+
+while True:
+    data = mysock.recv(5120)
+    if len(data) < 1: break
+    #time.sleep(0.25)
+    count = count + len(data)
+    print(len(data), count)
+    picture = picture + data
+
+mysock.close()
+
+# Look for the end of the header (2 CRLF)
+pos = picture.find(b"\r\n\r\n")
+print('Header length', pos)
+print(picture[:pos].decode())
+
+# Skip past the header and save the picture data
+picture = picture[pos+4:]
+fhand = open("stuff.jpg", "wb")
+fhand.write(picture)
+fhand.close()
+
+# Code: http://www.py4e.com/code3/urljpeg.py When the program runs, it produces the following output: 
+
+$ python urljpeg.py
+5120 5120
+5120 10240
+4240 14480
+5120 19600
+...
+5120 214000
+3200 217200
+5120 222320
+5120 227440
+3167 230607
+Header length 393
+HTTP/1.1 200 OK
+Date: Wed, 11 Apr 2018 18:54:09 GMT
+Server: Apache/2.4.7 (Ubuntu)
+Last-Modified: Mon, 15 May 2017 12:27:40 GMT
+ETag: "38342-54f8f2e5b6277"
+Accept-Ranges: bytes
+Content-Length: 230210
+Vary: Accept-Encoding
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
+Connection: close
+Content-Type: image/jpeg
+
+We can slow down our successive recv() calls by uncommenting the call to time.sleep(). This way, we wait a quarter of a second after each call so that the server can "get ahead" of us and send more data to us before we call recv() again.
+
+Using urllib:
+-------------
+
+The equivalent code to read the romeo.txt file from the web using urllib is as follows: 
+
+import urllib.request
+
+fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+for line in fhand:
+    print(line.decode().strip())
+
+this doesn't return the headers
+
+As an example, we can write a program to retrieve the data for romeo.txt and compute the frequency of each word in the file as follows: import urllib.request, urllib.parse, urllib.error
+
+fhand = urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+
+counts = dict()
+for line in fhand:
+    words = line.decode().split()
+    for word in words:
+        counts[word] = counts.get(word, 0) + 1
+print(counts)
+
+Reading Binary files using urllib:
+---------------------------------
+
+Sometimes you want to retrieve a non-text (or binary) file such as an image or video file. The data in these files is generally not useful to print out, but you can easily make a copy of a URL to a local file on your hard disk using urllib. 
+
+The pattern is to open the URL and use read to download the entire contents of the document into a string variable (img) then write that information to a local file as follows: 
+
+import urllib.request, urllib.parse, urllib.error
+
+img = urllib.request.urlopen('http://data.pr4e.org/cover3.jpg').read()
+fhand = open('cover3.jpg', 'wb')
+fhand.write(img)
+fhand.close()
+
+# Code: http://www.py4e.com/code3/curl1.py
+
+This program reads all of the data in at once across the network and stores it in the variable img in the main memory of your computer, then opens the file cover.jpg and writes the data out to your disk. The wb argument for open() opens a binary file for writing only. This program will work if the size of the file is less than the size of the memory of your computer.
+
+to avoid running out of memory, retrive data in blocks:
+
+import urllib.request, urllib.parse, urllib.error
+
+img = urllib.request.urlopen('http://data.pr4e.org/cover3.jpg')
+fhand = open('cover3.jpg', 'wb')
+size = 0
+while True:
+    info = img.read(100000)
+    if len(info) < 1: break
+    size = size + len(info)
+    fhand.write(info)
+
+print(size, 'characters copied.')
+fhand.close()
+
+# Code: http://www.py4e.com/code3/curl2.py
+
+In this example, we read only 100,000 characters at a time and then write those characters to the cover.jpg file before retrieving the next 100,000 characters of data from the web. This program runs as follows: 
+
+python curl2.py
+230210 characters copied.
+
+Text Processing:
+----------------
+ASCII
+
+American Standard Code for Information Interchange
+
+ord() tells us which number a character represents betw 0-256 stored in 8 bits of memory
+
+8 bits of memory = a byte
+
+encode() - turns a unicode string into UTF-8 bytes
+decode() - turns UTF-8 into strings
