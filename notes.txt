@@ -1454,3 +1454,7 @@ ord() tells us which number a character represents betw 0-256 stored in 8 bits o
 
 encode() - turns a unicode string into UTF-8 bytes
 decode() - turns UTF-8 into strings
+
+Web Scraping:
+-------------
+
