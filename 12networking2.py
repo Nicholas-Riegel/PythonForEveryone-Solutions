@@ -21,18 +21,16 @@ mysock.send(cmd)
 
 characters = 0
 count = 0
+text = ''
 
 while True:
-    data = mysock.recv(1000)
-    for x in data:
-        characters += 1
-    if count < 3:
-        print(data.decode(), end='')
-        count += 1
+    data = mysock.recv(512)
     if len(data) < 1:
         break
-print('\n\nThe number of characters is:', str(characters))
+    text += data.decode()
+
+print(text[:3000])
+
+print('\nThe number of characters is:', len(text))
 
 mysock.close()
-
-# I'm not sure if this is right. I'd be happy for some feedback.
