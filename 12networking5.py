@@ -24,9 +24,9 @@ text = ''
 
 while True:
     data = mysock.recv(1000)
-    text += data.decode()
     if len(data) < 1:
         break
+    text += data.decode()
 
 list0 = text.split('\n\r\n')
 print(list0[1])
