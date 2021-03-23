@@ -20,7 +20,6 @@ cmd = 'GET '+fullUrl+' HTTP/1.0\r\n\r\n'
 cmd = cmd.encode()
 mysock.send(cmd)
 
-characters = 0
 text = ''
 
 while True:
