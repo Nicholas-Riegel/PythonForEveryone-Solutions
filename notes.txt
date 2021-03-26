@@ -1450,6 +1450,7 @@ American Standard Code for Information Interchange
 
 ord() tells us which number a character represents betw 0-256 stored in 8 bits of memory
 
+each character in binary is 8 bits (8 zeros or ones)
 8 bits of memory = a byte
 
 encode() - turns a unicode string into UTF-8 bytes
@@ -1458,3 +1459,72 @@ decode() - turns UTF-8 into strings
 Web Scraping:
 -------------
 
+13
+
+=============
+WEB SERVICES
+=============
+
+the wire protocol
+
+serialization
+
+most common 'wire protocols'? are XML and JSON
+
+XML
+
+extensible markup L
+
+attributes are children of nodes?
+
+can also think of xml as paths
+
+<a>
+    <b>X</b>
+</a>
+
+/a/b X
+
+XML Schema
+
+Describing a 'contract' about what is acceptible XML
+
+if meets specification, it is said to 'validate'
+
+XML schema languages:
+
+Document Type Definition DTD
+
+Standard Generalized Markup language SGML
+
+XML Schema from W3C XSD
+
+W3C world wide web consortium
+
+GMT "Zulu time"
+
+import xml.etree.ElementTree as ET
+
+data = ''' ... '''
+
+''' makes it a string
+
+tree = ET.fromstring(data)
+print('Name:', tree.find('name').text)
+print('Attr:', tree.find('email').get('hide'))
+
+<users>
+    <user x='2'>
+etc.
+
+list0 = stuff.findall('users/user')
+
+JSON
+---------
+
+import json
+
+data = ''' an object... '''
+
+info = json.loads(data)
+print('Name:', info['name'])

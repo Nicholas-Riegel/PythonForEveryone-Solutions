@@ -15,6 +15,7 @@ ctx.verify_mode = ssl.CERT_NONE
 url = input('Enter: ')
 if url == '':
     url = 'https://docs.python.org'
+    
 html = urllib.request.urlopen(url, context=ctx).read()
 soup = BeautifulSoup(html, 'html.parser')
 
