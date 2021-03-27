@@ -1528,3 +1528,71 @@ data = ''' an object... '''
 
 info = json.loads(data)
 print('Name:', info['name'])
+
+14
+
+=======
+OBJECTS
+=======
+
+Class: template - dog
+
+Method or Message: a defined capability of a class - bark()
+
+field or atribute: a bit of data in a class, or a variable in a class - length
+
+Object or Instance: A particular instance of a class - Lassie
+
+---------------
+
+class PartyAnimal:
+    x = 0
+    def party(self):
+        self.x = self.x + 1
+        print('So far', self.x)
+
+yoyo = PartyAnimal()
+
+yoyo.party() # So far 2
+yoyo.party() # So far 4
+yoyo.party() # So far 6
+
+== PartyAnimal.party(yoyo)
+
+x = list()
+this is the same thing
+dir(x)
+append, insert, sort, etc.
+
+--------------
+object lifecycle
+--------------
+special methods
+at he moment of creation: constructors (common)
+at the moment of destruction: destructors (uncommon)
+
+class PartyAnimal:
+   x = 0
+
+   def __init__(self): # constructor
+     print('I am constructed')
+
+   def party(self) :
+     self.x = self.x + 1
+     print('So far',self.x)
+
+   def __del__(self): # destructor
+     print('I am destructed', self.x)
+
+an = PartyAnimal() # triggers the constructor
+an.party()
+an.party()
+an = 42 # triggers the destructor
+print('an contains',an)
+
+-------------
+Inheritance
+-------------
+
+subclasses
+
