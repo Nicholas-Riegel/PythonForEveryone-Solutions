@@ -1596,3 +1596,137 @@ Inheritance
 
 subclasses
 
+15
+
+==========
+Databases
+==========
+
+Structured Query Language or SQL for short.
+
+Relations - table
+Tuple - row, like an object, person or musik track
+Attribute - column or field, elements of data corresponding to the object/row
+
+-----------------
+import sqlite3
+
+conn = sqlite3.connect('music.sqlite')
+
+    #The connect operation makes a “connection” to the database stored in the file 'music.sqlite' in the current directory. If the file does not exist, it will be created.
+
+cur = conn.cursor()
+    #cursor() is like open(); it creates the handle, cur
+
+cur.execute('DROP TABLE IF EXISTS Tracks')
+    #deletes the 'Tracks' table
+
+cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
+    #creates 'Tracks' table
+    # a text column named title and an integer column named plays.
+conn.close()
+
+------------
+Now that we have created a table named Tracks, we can put some data into that table using the SQL INSERT operation. 
+
+import sqlite3
+
+conn = sqlite3.connect('music.sqlite')
+cur = conn.cursor()
+    # Again, we begin by making a connection to the database and obtaining the cursor. We can then execute SQL commands using the cursor.
+
+
+cur.execute('INSERT INTO Tracks (title, plays) VALUES (?, ?)', ('Thunderstruck', 20) )
+cur.execute('INSERT INTO Tracks (title, plays) VALUES (?, ?)', ('My Way', 15) )
+
+    #The SQL INSERT command indicates which table we are using and then defines a new row by listing the fields we want to include (title, plays) followed by the VALUES we want placed in the new row. We specify the values as question marks (?, ?) to indicate that the actual values are passed in as a tuple ( 'My Way', 15 ) as the second parameter to the execute() call.
+
+
+conn.commit()
+    #use commit() to force the data to be written to the database file.
+
+print('Tracks:')
+cur.execute('SELECT title, plays FROM Tracks')
+
+    #Then we use the SELECT command to retrieve the rows we just inserted from the table. On the SELECT command, we indicate which columns we would like (title, plays) and indicate which table we want to retrieve the data from. After we execute the SELECT statement, the cursor is something we can loop through in a for statement. For efficiency, the cursor does not read all of the data from the database when we execute the SELECT statement. Instead, the data is read on demand as we loop through the rows in the for statement.
+
+for xrow in cur:
+     print(xrow)
+
+cur.execute('DELETE FROM Tracks WHERE plays < 100')
+conn.commit()
+
+    #At the very end of the program, we execute an SQL command to DELETE the rows we have just created so we can run the program over and over. The DELETE command shows the use of a WHERE clause that allows us to express a selection criterion so that we can ask the database to apply the command to only the rows that match the criterion. In this example the criterion happens to apply to all the rows so we empty the table out so we can run the program repeatedly. After the DELETE is performed, we also call commit() to force the data to be removed from the database.
+
+cur.close()
+
+---------------------
+Structured Query Language
+
+So far, we have been using the Structured Query Language in our Python examples and have covered many of the basics of the SQL commands. In this section, we look at the SQL language in particular and give an overview of SQL syntax.
+
+Since there are so many different database vendors, the Structured Query Language (SQL) was standardized so we could communicate in a portable manner to database systems from multiple vendors.
+
+A relational database is made up of tables, rows, and columns. The columns generally have a type such as text, numeric, or date data. When we create a table, we indicate the names and types of the columns:
+
+CREATE TABLE Tracks (title TEXT, plays INTEGER)
+
+To insert a row into a table, we use the SQL INSERT command:
+
+INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
+
+The INSERT statement specifies the table name, then a list of the fields/columns that you would like to set in the new row, and then the keyword VALUES and a list of corresponding values for each of the fields.
+
+The SQL SELECT command is used to retrieve rows and columns from a database. The SELECT statement lets you specify which columns you would like to retrieve as well as a WHERE clause to select which rows you would like to see. It also allows an optional ORDER BY clause to control the sorting of the returned rows.
+
+SELECT * FROM Tracks WHERE title = 'My Way'
+
+Using * indicates that you want the database to return all of the columns for each row that matches the WHERE clause.
+
+Note, unlike in Python, in a SQL WHERE clause we use a single equal sign to indicate a test for equality rather than a double equal sign. Other logical operations allowed in a WHERE clause include <, >, <=, >=, !=, as well as AND and OR and parentheses to build your logical expressions.
+
+You can request that the returned rows be sorted by one of the fields as follows:
+
+SELECT title,plays FROM Tracks ORDER BY title
+
+To remove a row, you need a WHERE clause on an SQL DELETE statement. The WHERE clause determines which rows are to be deleted:
+
+DELETE FROM Tracks WHERE title = 'My Way'
+
+It is possible to UPDATE a column or columns within one or more rows in a table using the SQL UPDATE statement as follows:
+
+UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
+
+The UPDATE statement specifies a table and then a list of fields and values to change after the SET keyword and then an optional WHERE clause to select the rows that are to be updated. A single UPDATE statement will change all of the rows that match the WHERE clause. If a WHERE clause is not specified, it performs the UPDATE on all of the rows in the table.
+
+These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow the four basic operations needed to create and maintain data.
+
+
+Relational Database Design
+--------------------------
+string data should only appear once
+Primary Key: integer on side of spreadsheet
+Logical Key: what outside world sees for lookup
+Foreign Key: integer key pointing to the primary key of a row in another table
+
+if you put semi-colons between commands in the SQL browswer, you can enter more than one command at the same time
+
+
+JOIN operation
+---------------
+links across tables as a SELECT operation
+
+You must tell the JOIN how to use the keys that make the connection between the tables using an ON clause
+
+select Album.title, Artist.name #this is what we want to see connected at the end
+from Album join Artist on Album.artist_id = Artist.id
+
+joining to tables wo an on clause gives all possible combinations of rows
+
+Many to Many Relationships
+---------------------------
+arrows point from many to the one
+e.g. traks --> album
+
+have to make a 'connector table' for many to many relationships
+for these we use two foreign keys
