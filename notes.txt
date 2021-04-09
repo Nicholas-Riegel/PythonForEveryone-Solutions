@@ -1730,3 +1730,44 @@ e.g. traks --> album
 
 have to make a 'connector table' for many to many relationships
 for these we use two foreign keys
+
+DATABASE COMMANDS:
+--------------------
+Beginning:
+conn = sqlite3.connect('music.sqlite')
+cur = conn.cursor()
+
+Middle:
+cur.execute()
+
+DROP:
+'DROP TABLE IF EXISTS Tracks'
+
+CREATE:
+'CREATE TABLE Tracks (title TEXT, plays INTEGER)' #columns
+'CREATE TABLE IF NOT EXISTS Twitter (name TEXT, retrieved INTEGER, friends INTEGER)'
+
+INSERT:
+'INSERT INTO Tracks (title, plays) VALUES (?, ?)', ('Thunderstruck', 20) #rows
+'INSERT INTO Tracks (title, plays) VALUES (?, ?)', ('My Way', 15)
+
+SELECT:
+'SELECT title, plays FROM Tracks' #could add a WHERE clause to get the rows
+"SELECT * FROM Tracks WHERE title = 'My Way'" # '*' - you want to select all the columns for the WHERE clause
+
+WHERE clause operators: =, <, >, <=, >=, !=, AND, OR, ().
+
+ORDER BY:
+SELECT title,plays FROM Tracks ORDER BY title
+
+DELETE:
+"DELETE FROM Tracks WHERE title = 'My Way'"
+'DELETE FROM Tracks WHERE plays < 100'
+
+UPDATE:
+UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
+
+
+End:
+conn.commit()
+conn.close()
