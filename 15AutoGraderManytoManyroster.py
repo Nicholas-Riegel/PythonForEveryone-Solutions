@@ -1,5 +1,3 @@
-#Again, I sort of just hacked away at this until I got is. This is a horrible chapter. Horrible pedagogy. 
-
 import json
 import sqlite3
 

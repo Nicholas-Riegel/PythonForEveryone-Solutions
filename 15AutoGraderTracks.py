@@ -1,5 +1,3 @@
-# It was mostly luck that I solved this. I honestly just hacked away at it until it finally worked. Basically just copying the surrounding code structure to add Genre into everything. It gave me no understanding of the subject matter. This chapter was really poorly designed. Very poor pedagogy. 
-
 import xml.etree.ElementTree as ET
 import sqlite3
 
